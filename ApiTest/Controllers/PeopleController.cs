@@ -1,6 +1,7 @@
 ﻿using ApiTest.Helpers;
 using ApiTest.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,7 +20,7 @@ namespace ApiTest.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Person> GetPerson(int id)
+        public ActionResult<Person> GetPersonById(int id)
         {
             var people = JsonHelper.ReadFromJsonFile();
             var person = people.FirstOrDefault(p => p.Id == id);
@@ -28,6 +29,16 @@ namespace ApiTest.Controllers
                 return new NotFoundResult();
 
             return person;
+        }
+
+        [HttpGet("search")]
+        public ActionResult<List<Person>> Search([FromQuery] string nameToSearch)
+        {
+            var people = JsonHelper.ReadFromJsonFile();
+
+            var results = people.Where(p => p.Name.Contains(nameToSearch, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            return results;
         }
 
         [HttpPost]
