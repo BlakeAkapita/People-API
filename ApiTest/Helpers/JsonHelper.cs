@@ -1,25 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Net.Http.Json;
+using ApiTest.Models;
 using Newtonsoft.Json;
 
 namespace ApiTest.Helpers
 {
     public class JsonHelper
     {
-        private static readonly string JsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), "people.json");
+        private static readonly string JsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), "data.json");
 
-        public static List<T> ReadFromJsonFile<T>()
+        public static List<Person> ReadFromJsonFile()
         {
             using StreamReader file = File.OpenText(JsonFilePath);
-            JsonSerializer serializer = new JsonSerializer();
-            return (List<T>)serializer.Deserialize(file, typeof(List<T>));
+            string jsonContent = File.ReadAllText(JsonFilePath);
+            return JsonConvert.DeserializeObject<PersonList>(jsonContent).People;
         }
 
-        public static void WriteToJsonFile<T>(List<T> data)
+        public static void WriteToJsonFile(List<Person> data)
         {
             using StreamWriter file = File.CreateText(JsonFilePath);
             JsonSerializer serializer = new JsonSerializer();
-            serializer.Serialize(file, data);
+
+            var personList = new PersonList { People = data };
+
+            serializer.Serialize(file, personList);
         }
     }
 }
