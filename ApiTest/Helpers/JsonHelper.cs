@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Net.Http.Json;
 using ApiTest.Models;
 using Newtonsoft.Json;
 
