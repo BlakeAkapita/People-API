@@ -11,7 +11,7 @@ This test is to create a simple API that serves data from a JSON file. We would 
 
 ## Submitting Completed Test
 - Please commit your code to a private github repository, and invite both `AeroqualHayden` and `maxgruebneraeroqual` as collaborators.
-- If you cannot do that for some reason, please zip the source code and email i to the recruiter.
+- If you cannot do that for some reason, please zip the source code and email it to the recruiter.
 
 ## Design decisions
 _If you have made any design decisions that you would like to explain, please add them here_
